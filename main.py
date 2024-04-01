@@ -1,4 +1,4 @@
-from space_modeling import Map
+from src.space_modeling import Map
 
 map = Map()
 print(map)
