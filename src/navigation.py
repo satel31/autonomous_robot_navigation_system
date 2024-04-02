@@ -35,6 +35,36 @@ def get_neighbors(grid, current_point):
     return neighbors
 
 
+def is_valid_line(start, end, grid):
+    x0, y0 = start
+    x1, y1 = end
+
+    # Direct line from start to end
+    line_points = [(x, y) for x in range(min(x0, x1), max(x0, x1) + 1)
+                   for y in range(min(y0, y1), max(y0, y1) + 1)]
+
+    # Check obstacles
+    for point in line_points:
+        x, y = point
+        if grid[y][x] == 1:
+            return False
+
+    return True
+
+def optimisation(path, grid):
+    smoothed_path = [path[0]]
+
+    for i in range(1, len(path) - 1):
+        # Check if we can connect current and next point
+        if is_valid_line(path[i - 1], path[i + 1], grid):
+            continue
+        else:
+            smoothed_path.append(path[i])
+    smoothed_path.append(path[-1])
+
+    return smoothed_path
+
+
 def astar_algorithm(grid, start, goal):
     """
        Реализация алгоритма A* для нахождения кратчайшего пути от start до goal на карте grid.
@@ -84,3 +114,5 @@ def astar_algorithm(grid, start, goal):
             cost[neighbor] = tent_cost
 
     return "До этой точки нет пути"  # There is no way
+
+
