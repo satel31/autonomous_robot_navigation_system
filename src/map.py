@@ -11,7 +11,7 @@ class Map:
         self.grid = [[0] * self.width for _ in range(self.height)]
 
         # Random count of obstacles from 0 to max count of cells on the map
-        obstacles_count = randint(0, self.width * self.height)
+        obstacles_count = 0 #randint(0, self.width * self.height)
 
         for _ in range(obstacles_count):
             # Choose random coordinates for cell

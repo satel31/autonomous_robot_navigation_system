@@ -1,15 +1,11 @@
 from src.map import Map
 from src.navigation import astar_algorithm, optimization
+from src.visualization import visualize
 
 map = Map()
-print(map)
-print(map.grid)
-
-# for test
-print(map.width, map.height)
 
 start = (0, 0)
-goal = (5, 2)
+goal = (2, 3)
 
 if len(map.grid) == 0:
     print("Сгенерировалась пустая карта")
@@ -26,3 +22,4 @@ else:
         if type(path) != str:
             opt_path = optimization(path, map.grid)
             print(opt_path)
+            visualize(map, path, opt_path, start, goal)
