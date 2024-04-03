@@ -51,7 +51,7 @@ def is_valid_line(start, end, grid):
 
     return True
 
-def optimisation(path, grid):
+def optimization(path, grid):
     smoothed_path = [path[0]]
 
     for i in range(1, len(path) - 1):

@@ -1,8 +1,9 @@
 from src.map import Map
-from src.navigation import astar_algorithm, optimisation
+from src.navigation import astar_algorithm, optimization
 
 map = Map()
 print(map)
+print(map.grid)
 
 # for test
 print(map.width, map.height)
@@ -23,5 +24,5 @@ else:
         path = astar_algorithm(map.grid, start, goal)
         print(path)
         if type(path) != str:
-            opt_path = optimisation(path, map.grid)
+            opt_path = optimization(path, map.grid)
             print(opt_path)
