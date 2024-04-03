@@ -1,18 +1,19 @@
 from src.map import Map
-from src.navigation import astar_algorithm
+from src.navigation import astar_algorithm, optimization
 
 map = Map()
 print(map)
+print(map.grid)
 
 # for test
 print(map.width, map.height)
 
 start = (0, 0)
-goal = (2, 3)
+goal = (5, 2)
 
 if len(map.grid) == 0:
     print("Сгенерировалась пустая карта")
-elif map.height < goal[1] or map.width < goal[0]:
+elif map.height <= goal[1] or map.width <= goal[0]:
     print("Точка цели вне карты")
 else:
     if map.is_obstacle(*start):
@@ -22,7 +23,6 @@ else:
     else:
         path = astar_algorithm(map.grid, start, goal)
         print(path)
-
-# for test
-print(map.grid[start[1]][start[0]])
-print(map.grid[goal[1]][goal[0]])
+        if type(path) != str:
+            opt_path = optimization(path, map.grid)
+            print(opt_path)
