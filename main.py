@@ -3,9 +3,7 @@ from src.navigation import astar_algorithm, optimization
 from src.visualization import visualize
 
 map = Map()
-print(map)
 
-# for test
 start = (0, 0)
 goal = (2, 3)
 
