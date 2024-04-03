@@ -1,29 +1,19 @@
 from heapq import heappush, heappop
 
 
-def way_cost(current, goal):
+def way_cost(current: tuple, goal: tuple) -> int:
     """
-       Эвристическая функция для оценки расстояния от текущей точки до цели.
-       Здесь используется диагональное расстояние (можно двигаться по вертикали, горизонтали и диагонали).
-
-       :param current: Текущая точка в формате (x, y).
-       :param goal: Целевая точка в формате (x, y).
-       :return: Оценка расстояния от текущей точки до цели.
-       """
+    Asses destination from current point to the goal.
+    """
     x = abs(current[0] - goal[0])
     y = abs(current[1] - goal[1])
     return max(x, y)
 
 
-def get_neighbors(grid, current_point):
+def get_neighbors(grid: list, current_point: tuple) -> list:
     """
-        Получает соседей текущей точки на карте.
-
-        :param grid: Карта пространства с препятствиями, представленная двумерным списком, где 0 - свободная ячейка,
-                     1 - препятствие.
-        :param current_point: Текущая точка в формате (x, y).
-        :return: Список соседних точек.
-        """
+    Get neighbors of current point on the map
+    """
     neighbors = []
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (-1, -1), (1, 1), (1, -1), (-1, 1)]
 
@@ -35,7 +25,10 @@ def get_neighbors(grid, current_point):
     return neighbors
 
 
-def is_valid_line(start, end, grid):
+def is_valid_line(start: tuple, end: tuple, grid: list) -> bool:
+    """
+    Check if there are obstacles in the way
+    """
     x0, y0 = start
     x1, y1 = end
 
@@ -51,7 +44,11 @@ def is_valid_line(start, end, grid):
 
     return True
 
-def optimization(path, grid):
+
+def optimization(path: list, grid: list) -> list:
+    """
+    Optimizes the path
+    """
     smoothed_path = [path[0]]
 
     for i in range(1, len(path) - 1):
@@ -65,21 +62,15 @@ def optimization(path, grid):
     return smoothed_path
 
 
-def astar_algorithm(grid, start, goal):
+def astar_algorithm(grid: list, start: tuple, goal: tuple) -> list | str:
     """
-       Реализация алгоритма A* для нахождения кратчайшего пути от start до goal на карте grid.
-
-       :param grid: Карта пространства с препятствиями, представленная двумерным списком, где 0 - свободная ячейка,
-                    1 - препятствие.
-       :param start: Координаты начальной точки в формате (x, y).
-       :param goal: Координаты конечной точки в формате (x, y).
-       :return: Кратчайший путь от start до goal в виде списка координат точек.
+    A* algorithm for finding the shortest path from start to goal on a grid
     """
     # List for open (not checked) points
     open_list = []
     # Set with closed (checked) points
     closed = set()
-    # Parents points (key -> current point, def -> previous point)
+    # Parents points (key -> current point, value -> previous point)
     parents = {}
     # Cost from start to current point
     cost = {start: 0}
@@ -96,6 +87,7 @@ def astar_algorithm(grid, start, goal):
             while current_point:
                 path.append(current_point)
                 current_point = parents.get(current_point)
+            # The best way
             return path[::-1]
 
         closed.add(current_point)
@@ -112,7 +104,5 @@ def astar_algorithm(grid, start, goal):
                 continue
             parents[neighbor] = current_point
             cost[neighbor] = tent_cost
-
-    return "До этой точки нет пути"  # There is no way
-
-
+    # There is no way
+    return "До этой точки нет пути"

@@ -2,8 +2,10 @@ from src.map import Map
 from src.navigation import astar_algorithm, optimization
 from src.visualization import visualize
 
+# Make random map
 map = Map()
 
+# Start and goal points
 start = (0, 0)
 goal = (2, 3)
 
